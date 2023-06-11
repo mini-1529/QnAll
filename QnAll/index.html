@@ -3,31 +3,69 @@
 <head>
     <title>QnAll</title>
     <style>
-        .button {
-          display: inline-block;
-          padding: 10px 20px;
-          background-color: #4CAF50;
-          color: white;
-          text-decoration: none;
-          border: none;
-          border-radius: 4px;
-          font-size: 16px;
-          cursor: pointer;
-        }
-    
-        .button:hover {
-          background-color: #45a049;
-        }
-        .divbox{
-          width: 99%;
-          border: 2px solid black;
-          margin: 5px;
-          display: block;
-        }
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+.event-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.event-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.event-item h1 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.event-item div {
+  font-size: 14px;
+  color: #555;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+  .event-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .event-item img {
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
       </style>
 </head>
 <body>
     <h1>QnAll 답변하기</h1>
+    <div id="currentUser"></div>
     <select id="subject">
       <option value="">과목선택</option>
       <option value="수1">수1</option>
@@ -42,8 +80,8 @@
     </div>
     <hr>
     <div>
-        <a class="button" href="first.html">질문하기</a>
-        <a class="button" href="first.html">채팅</a>
+        <a class="button" href="question.html">질문하기</a>
+        <a class="button" href="chat.html">채팅</a>
     </div>
     <script src="script.js"></script>
 </body>
