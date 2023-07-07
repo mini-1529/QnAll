@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <title>네이버 OAuth 콜백 페이지</title>
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+</head>
+
+<body>
+  <h1>네이버 OAuth 콜백 페이지</h1>
+  <h3>인증이 완료되었습니다.</h3>
+
+  <!-- 네이버 로그인 콜백 처리 스크립트 -->
+  <script type="text/javascript">
+    var naver_id_login = new naver_id_login();
+    naver_id_login.get_naver_userprofile("callbackNaverLogin");
+    
+    function callbackNaverLogin(userProfile) {
+      // 인증 완료 후 리디렉션 처리
+      window.location.href = "https://qnall.kro.kr/answer.html";
+    }
+  </script>
+  <!-- // 네이버 로그인 콜백 처리 스크립트 -->
+
+</body>
+</html>
