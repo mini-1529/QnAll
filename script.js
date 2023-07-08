@@ -34,7 +34,7 @@ function fetchUserData() {
   };
 
   // 실제 유저 데이터를 가져오는 URL로 수정해야 함
-  const userDataURL = '서버에서 유저 데이터를 가져올 URL';
+  const userDataURL = 'https://qnall.kro.kr/';
   xhr.open('GET', userDataURL);
   xhr.send();
 }
@@ -94,7 +94,7 @@ function fetchDataBySubject(selectedOption) {
   };
 
   // 실제 데이터를 가져오는 URL로 수정해야 함
-  const dataURL = '서버에서 데이터를 가져올 URL';
+  const dataURL = 'https://qnall.kro.kr/';
   xhr.open('GET', dataURL);
   xhr.send();
 }
