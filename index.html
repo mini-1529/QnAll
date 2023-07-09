@@ -5,49 +5,76 @@
   <meta charset="utf-8">
   <title>QnAll에 오신 것을 환영해요!</title>
   <style>
-    .btn {
-      padding: 10px 20px;
-      background-color: #ffcc00;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 16px;
-      color: #ffffff;
-      cursor: pointer;
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
     }
 
-    .btn:hover {
-      background-color: #ffa500;
+    h1 {
+      color: #333333;
     }
+
+    h3, h4 {
+      color: #666666;
+      font-size: 32px;
+    }
+
+  .btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background-color: #ffa500;
+  }
+
   </style>
   <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 </head>
 
 <body>
-  <h1>QnAll</h1>
-  <h3>QnAll에 오신 것을 환영해요!</h3>
-  <h4>QnAll은 누구나 수학 문제를 질문하고, 답변을 받을 수 있는 사이트에요!</h4>
-  <br><br>
+  <div class="container">
+    <img src="logo.png" alt="QnAll" width="400px" height="auto">
+    <h3>QnAll에 오신 것을 환영해요!</h3>
+    <h4>QnAll은 누구나 수학 문제를 질문하고, <br>답변을 받을 수 있는 사이트에요!</h4>
+    <br><br>
 
-  <a>구글로 로그인 (미완성)</a>
-  <br><br>
-  <!-- 네이버 로그인 버튼 노출 영역 -->
-<div id="naver_id_login"></div>
-<!-- //네이버 로그인 버튼 노출 영역 -->
+    <a>구글로 로그인 (미완성)</a>
+    <br><br>
+    <!-- 네이버 로그인 버튼 노출 영역 -->
+    <div id="naver_id_login"></div>
+    <!-- //네이버 로그인 버튼 노출 영역 -->
 
 
-<!-- 네이버아디디로로그인 초기화 Script -->
-<script type="text/javascript">
-	var naver_id_login = new naver_id_login("6ohvMrOWVXupwLYuwRIF", "https://qnall.kro.kr/naver_callback.html");
-	var state = naver_id_login.getUniqState();
-	naver_id_login.setButton("green", 2, 40);
-	naver_id_login.setDomain(".service.com");
-	naver_id_login.setState(state);
-	naver_id_login.setPopup();
-	naver_id_login.init_naver_id_login();
-</script>
-<!-- // 네이버 로그인 초기화 Script -->
+    <!-- 네이버아디디로로그인 초기화 Script -->
+    <script type="text/javascript">
+    	var naver_id_login = new naver_id_login("6ohvMrOWVXupwLYuwRIF", "https://qnall.kro.kr/naver_callback.html");
+    	var state = naver_id_login.getUniqState();
+    	naver_id_login.setButton("green", 2, 40);
+    	naver_id_login.setDomain(".service.com");
+    	naver_id_login.setState(state);
+    	naver_id_login.setPopup();
+    	naver_id_login.init_naver_id_login();
+    </script>
+  <!-- // 네이버 로그인 초기화 Script -->
 
-  <br><br><a href="opencsat.html" class="custom-button">7월 모의고사 풀이 보러가기</a>
+    <br><br><a href="opencsat.html" class="btn">7월 모의고사 풀이 보러가기</a>
+  </div>
 </body>
 </html>
