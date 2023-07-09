@@ -12,17 +12,17 @@
   <h1>네이버 OAuth 콜백 페이지</h1>
   <h3>인증이 완료되었습니다.</h3>
 
-  <!-- 네이버 로그인 콜백 처리 스크립트 -->
   <script type="text/javascript">
     var naver_id_login = new naver_id_login();
     naver_id_login.get_naver_userprofile("callbackNaverLogin");
-
+  
     function callbackNaverLogin(userProfile) {
       var accessToken = getAccessTokenFromHash();
       console.log("Access Token:", accessToken);
+      sendTokenToServer(accessToken);
       redirectToAnswerPage();
     }
-
+  
     // 해시 문자열에서 access_token 추출
     function getAccessTokenFromHash() {
       var hash = window.location.hash.substring(1);
@@ -35,13 +35,30 @@
       }
       return null;
     }
-
+  
+    // 토큰을 서버로 전송
+    function sendTokenToServer(accessToken) {
+      // 서버로 토큰을 전송하는 AJAX 요청
+      $.ajax({
+        url: "/token",
+        method: "POST",
+        data: { token: accessToken },
+        success: function (response) {
+          console.log("토큰이 서버로 전송되었습니다.");
+        },
+        error: function (error) {
+          console.error("토큰 전송 중 오류가 발생했습니다.");
+        }
+      });
+    }
+  
     // 답변 페이지로 리디렉션
     function redirectToAnswerPage() {
       window.opener.location.href = "https://qnall.kro.kr/answer.html";
       window.close();
     }
   </script>
+  
   <!-- // 네이버 로그인 콜백 처리 스크립트 -->
 
 </body>
