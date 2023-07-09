@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>네이버 OAuth 콜백 페이지</title>
   <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -15,10 +16,30 @@
   <script type="text/javascript">
     var naver_id_login = new naver_id_login();
     naver_id_login.get_naver_userprofile("callbackNaverLogin");
-    
+
     function callbackNaverLogin(userProfile) {
-      // 인증 완료 후 리디렉션 처리
-      window.location.href = "https://qnall.kro.kr/answer.html";
+      var accessToken = getAccessTokenFromHash();
+      console.log("Access Token:", accessToken);
+      redirectToAnswerPage();
+    }
+
+    // 해시 문자열에서 access_token 추출
+    function getAccessTokenFromHash() {
+      var hash = window.location.hash.substring(1);
+      var params = hash.split("&");
+      for (var i = 0; i < params.length; i++) {
+        var param = params[i].split("=");
+        if (param[0] === "access_token") {
+          return param[1];
+        }
+      }
+      return null;
+    }
+
+    // 답변 페이지로 리디렉션
+    function redirectToAnswerPage() {
+      window.opener.location.href = "https://qnall.kro.kr/answer.html";
+      window.close();
     }
   </script>
   <!-- // 네이버 로그인 콜백 처리 스크립트 -->
