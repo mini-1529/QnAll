@@ -15,14 +15,14 @@
   <script type="text/javascript">
     var naver_id_login = new naver_id_login();
     naver_id_login.get_naver_userprofile("callbackNaverLogin");
-  
+
     function callbackNaverLogin(userProfile) {
       var accessToken = getAccessTokenFromHash();
       console.log("Access Token:", accessToken);
       sendTokenToServer(accessToken);
       redirectToAnswerPage();
     }
-  
+
     // 해시 문자열에서 access_token 추출
     function getAccessTokenFromHash() {
       var hash = window.location.hash.substring(1);
@@ -35,12 +35,12 @@
       }
       return null;
     }
-  
+
     // 토큰을 서버로 전송
     function sendTokenToServer(accessToken) {
       // 서버로 토큰을 전송하는 AJAX 요청
       $.ajax({
-        url: "https://qnall.kro.kr:3000",
+        url: "https://port-0-node-k19y2kljmqqm80.sel4.cloudtype.app/",
         method: "POST",
         data: { token: accessToken },
         success: function (response) {
@@ -51,14 +51,14 @@
         }
       });
     }
-  
+
     // 답변 페이지로 리디렉션
     function redirectToAnswerPage() {
       window.opener.location.href = "https://qnall.kro.kr/answer.html";
       window.close();
     }
   </script>
-  
+
   <!-- // 네이버 로그인 콜백 처리 스크립트 -->
 
 </body>
