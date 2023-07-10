@@ -1,65 +1,42 @@
-<!DOCTYPE html>
 <html lang="ko">
-
 <head>
-  <meta charset="utf-8">
-  <title>네이버 OAuth 콜백 페이지</title>
-  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
-
 <body>
-  <h1>네이버 OAuth 콜백 페이지</h1>
-  <h3>인증이 완료되었습니다.</h3>
+<!-- 네이버 로그인 버튼 노출 영역 -->
+<div id="naver_id_login"></div>
+<!-- //네이버 로그인 버튼 노출 영역 -->
 
-  <script type="text/javascript">
-    var naver_id_login = new naver_id_login();
-    naver_id_login.get_naver_userprofile("callbackNaverLogin");
 
-    function callbackNaverLogin(userProfile) {
-      var accessToken = getAccessTokenFromHash();
-      console.log("Access Token:", accessToken);
-      sendTokenToServer(accessToken);
-      redirectToAnswerPage();
-    }
+<!-- 네이버아디디로로그인 초기화 Script -->
+<script type="text/javascript">
+	var naver_id_login = new naver_id_login("6ohvMrOWVXupwLYuwRIF", "https://qnall.kro.kr/naver_callback.html");
+	var state = naver_id_login.getUniqState();
+	naver_id_login.setButton("white", 2,40);
+	naver_id_login.setDomain(".service.com");
+	naver_id_login.setState(state);
+	naver_id_login.setPopup();
+	naver_id_login.init_naver_id_login();
+</script>
+<!-- //네이버아디디로로그인 초기화 Script -->
 
-    // 해시 문자열에서 access_token 추출
-    function getAccessTokenFromHash() {
-      var hash = window.location.hash.substring(1);
-      var params = hash.split("&");
-      for (var i = 0; i < params.length; i++) {
-        var param = params[i].split("=");
-        if (param[0] === "access_token") {
-          return param[1];
-        }
-      }
-      return null;
-    }
 
-    // 토큰을 서버로 전송
-    function sendTokenToServer(accessToken) {
-      // 서버로 토큰을 전송하는 AJAX 요청
-      $.ajax({
-        url: "https://port-0-node-k19y2kljmqqm80.sel4.cloudtype.app/",
-        method: "POST",
-        data: { token: accessToken },
-        success: function (response) {
-          console.log("토큰이 서버로 전송되었습니다.");
-        },
-        error: function (error) {
-          console.error("토큰 전송 중 오류가 발생했습니다.");
-        }
-      });
-    }
+<!-- 네이버아디디로로그인 Callback페이지 처리 Script -->
+<script type="text/javascript">
+	// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+	function naverSignInCallback() {
+		// naver_id_login.getProfileData('프로필항목명');
+		// 프로필 항목은 개발가이드를 참고하시기 바랍니다.
+		alert(naver_id_login.getProfileData('email'));
+		alert(naver_id_login.getProfileData('nickname'));
+		alert(naver_id_login.getProfileData('age'));
+	}
 
-    // 답변 페이지로 리디렉션
-    function redirectToAnswerPage() {
-      window.opener.location.href = "https://qnall.kro.kr/answer.html";
-      window.close();
-    }
-  </script>
 
-  <!-- // 네이버 로그인 콜백 처리 스크립트 -->
-
+	// 네이버 사용자 프로필 조회
+	naver_id_login.get_naver_userprofile("naverSignInCallback()");
+</script>
+<!-- //네이버아디디로로그인 Callback페이지 처리 Script -->
 </body>
 </html>
