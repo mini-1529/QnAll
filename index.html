@@ -1,80 +1,65 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="utf-8">
-  <title>QnAll에 오신 것을 환영해요!</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      text-align: center;
-    }
-
-    h1 {
-      color: #333333;
-    }
-
-    h3, h4 {
-      color: #666666;
-      font-size: 32px;
-    }
-
-  .btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #ffcc00;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 16px;
-    color: #ffffff;
-    cursor: pointer;
-  }
-
-  .btn:hover {
-    background-color: #ffa500;
-  }
-
-  </style>
-  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <title>QnAll - 질문하기</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body>
-  <div class="container">
-    <img src="logo.png" alt="QnAll" width="400px" height="auto">
-    <h3>QnAll에 오신 것을 환영해요!</h3>
-    <h4>QnAll은 누구나 수학 문제를 질문하고, <br>답변을 받을 수 있는 사이트에요!</h4>
-    <br><br>
-
-    <a>구글로 로그인 (미완성)</a>
-    <br><br>
-    <!-- 네이버 로그인 버튼 노출 영역 -->
-    <div id="naver_id_login"></div>
-    <!-- //네이버 로그인 버튼 노출 영역 -->
-
-
-    <!-- 네이버아디디로로그인 초기화 Script -->
-    <script type="text/javascript">
-    	var naver_id_login = new naver_id_login("6ohvMrOWVXupwLYuwRIF", "https://qnall.kro.kr/naver_callback.html");
-    	var state = naver_id_login.getUniqState();
-    	naver_id_login.setButton("green", 2, 40);
-    	naver_id_login.setDomain(".service.com");
-    	naver_id_login.setState(state);
-    	naver_id_login.setPopup();
-    	naver_id_login.init_naver_id_login();
-    </script>
-  <!-- // 네이버 로그인 초기화 Script -->
-
-    <br><br><a href="opencsat.html" class="btn">7월 모의고사 풀이 보러가기</a>
+  <h1>QnAll 질문하기</h1>
+  <p>여기에서 모르는 걸 질문해보아요~~~</p>
+  <h3>무엇이 궁금한가요?</h3>
+  <textarea id="박스" type="text" style="width: 300px; height: 100px; font-size: 10px;"></textarea>
+  <h3>과목명</h3>
+  <select name="과목" style="width: 100px; height: 50px;">
+    <option value="1">수1</option>
+    <option value="2">수2</option>
+    <option value="3">확률과 통계</option>
+    <option value="4">미적분</option>
+    <option value="5">기하</option>
+    <option value="6">수학(상)</option>
+    <option value="7">수학(하)</option>
+  </select>
+  <div>ㅤ</div>
+  <div>ㅤ</div>
+  <div>
+    <input type="file" id="file-input" accept="image/*" style="width: 100px; height: 50px;">
+    <div></div>
+    <button onclick="uploadPhoto()">업로드</button>
   </div>
+
+  <script>
+    function uploadPhoto() {
+      const fileInput = document.getElementById('file-input');
+      const file = fileInput.files[0];
+
+      if (file) {
+        const formData = new FormData();
+        formData.append('photo', file);
+
+        const url = 'https://https://port-0-node-k19y2kljmqqm80.sel4.cloudtype.app//upload'; // 실제 파일을 업로드하고 처리할 서버의 URL로 변경해야 합니다.
+
+        // AJAX 요청 보내기
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            console.log('파일 업로드 성공:', xhr.responseText);
+            // 업로드 성공 시 추가 작업을 수행할 수 있습니다.
+          } else {
+            console.error('파일 업로드 실패:', xhr.status);
+            // 업로드 실패 시 처리할 내용을 여기에 작성할 수 있습니다.
+          }
+        };
+        xhr.onerror = function() {
+          console.error('파일 업로드 실패:', xhr.status);
+          // 업로드 실패 시 처리할 내용을 여기에 작성할 수 있습니다.
+        };
+        xhr.send(formData);
+      } else {
+        console.log('파일을 선택해주세요.');
+      }
+    }
+  </script>
 </body>
 </html>
