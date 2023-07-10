@@ -40,7 +40,7 @@
     function sendTokenToServer(accessToken) {
       // 서버로 토큰을 전송하는 AJAX 요청
       $.ajax({
-        url: "https://port-0-node-k19y2kljmqqm80.sel4.cloudtype.app/",
+        url: "https://qnall.kro.kr:3000",
         method: "POST",
         data: { token: accessToken },
         success: function (response) {
