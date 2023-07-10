@@ -1,139 +1,65 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="utf-8">
-  <title>QnAll - 질문하기</title>
+  <title>네이버 OAuth 콜백 페이지</title>
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <style>
-    body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    }
-    .container {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    }
-
-    .title {
-    font-size: 32px;
-    margin-bottom: 20px;
-    }
-
-    .description {
-    font-size: 18px;
-    margin-bottom: 30px;
-    }
-
-    .section-title {
-    font-size: 24px;
-    margin-bottom: 10px;
-    }
-
-    .section-subtitle {
-    font-size: 18px;
-    margin-bottom: 20px;
-    }
-
-        #박스1 {
-      width: 100%;
-      height: 150px; /* 원하는 크기로 조정하세요 */
-      font-size: 16px; /* 원하는 폰트 크기로 조정하세요 */
-    }
-
-    #박스2 {
-      width: 100%;
-      height: 300px; /* 원하는 크기로 조정하세요 */
-      font-size: 20px; /* 원하는 폰트 크기로 조정하세요 */
-    }
-
-
-    .select {
-    width: 100%;
-    height: 30px;
-    font-size: 18px;
-    margin-bottom: 20px;
-    }
-
-    .file-input {
-    width: 100%;
-    height: 50px;
-    font-size: 18px;
-    margin-bottom: 20px;
-    }
-
-    .upload-button {
-    width: 100%;
-    height: 50px;
-    font-size: 18px;
-    }
-  </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1 class="title">QnAll 질문하기</h1>
-    <p class="description">여기에서 모르는 걸 질문해보아요~~~</p>
-    <h3 class="section-title">과목명</h3>
-    <select name="과목" class="select">
-    <option value="1">수1</option>
-    <option value="2">수2</option>
-    <option value="3">확률과 통계</option>
-    <option value="4">미적분</option>
-    <option value="5">기하</option>
-    <option value="6">수학(상)</option>
-    <option value="7">수학(하)</option>
-    </select>
+  <h1>네이버 OAuth 콜백 페이지</h1>
+  <h3>인증이 완료되었습니다.</h3>
 
-    <h3 class="section-title">무엇을 모르겠는지 간단하게 적어주세요</h3>
-    <h5 class="section-subtitle">(그냥 '어떻게 푸는지 모르겠어요' 정도도 괜찮습니다)</h5>
-    <textarea id="박스1" class="text-area" type="text"></textarea>
-
-    <h3 class="section-title">구체적으로 무엇이 궁금한가요?</h3>
-    <textarea id="박스2" class="text-area" type="text"></textarea>
-    
-    <div>ㅤ</div>
-    <div>ㅤ</div>
-    <div>
-    <input type="file" id="file-input" class="file-input" accept="image/*">
-    <div></div>
-    <button onclick="uploadPhoto()" class="upload-button">업로드</button>
-    </div>
-  </div>
-  <script>
-    function uploadPhoto() {
-      const fileInput = document.getElementById('file-input');
-      const file = fileInput.files[0];
-
-      if (file) {
-        const formData = new FormData();
-        formData.append('photo', file);
-
-        const url = 'https://port-0-node-k19y2kljmqqm80.sel4.cloudtype.app/upload'; // 실제 파일을 업로드하고 처리할 서버의 URL로 변경해야 합니다.
-
-        // AJAX 요청 보내기
-        $.ajax({
-          url: url,
-          type: 'POST',
-          data: formData,
-          processData: false,
-          contentType: false,
-          success: function (response) {
-            console.log('파일 업로드 성공:', response);
-            // 업로드 성공 시 추가 작업을 수행할 수 있습니다.
-          },
-          error: function (xhr, status, error) {
-            console.error('파일 업로드 실패:', error);
-            // 업로드 실패 시 처리할 내용을 여기에 작성할 수 있습니다.
-          }
-        });
-      } else {
-        console.log('파일을 선택해주세요.');
+  <script type="text/javascript">
+    var naver_id_login = new naver_id_login();
+    naver_id_login.get_naver_userprofile("callbackNaverLogin");
+  
+    function callbackNaverLogin(userProfile) {
+      var accessToken = getAccessTokenFromHash();
+      console.log("Access Token:", accessToken);
+      sendTokenToServer(accessToken);
+      redirectToAnswerPage();
+    }
+  
+    // 해시 문자열에서 access_token 추출
+    function getAccessTokenFromHash() {
+      var hash = window.location.hash.substring(1);
+      var params = hash.split("&");
+      for (var i = 0; i < params.length; i++) {
+        var param = params[i].split("=");
+        if (param[0] === "access_token") {
+          return param[1];
+        }
       }
+      return null;
+    }
+  
+    // 토큰을 서버로 전송
+    function sendTokenToServer(accessToken) {
+      // 서버로 토큰을 전송하는 AJAX 요청
+      $.ajax({
+        url: "https://qnall.kro.kr:3000",
+        method: "POST",
+        data: { token: accessToken },
+        success: function (response) {
+          console.log("토큰이 서버로 전송되었습니다.");
+        },
+        error: function (error) {
+          console.error("토큰 전송 중 오류가 발생했습니다.");
+        }
+      });
+    }
+  
+    // 답변 페이지로 리디렉션
+    function redirectToAnswerPage() {
+      window.opener.location.href = "https://qnall.kro.kr/answer.html";
+      window.close();
     }
   </script>
+  
+  <!-- // 네이버 로그인 콜백 처리 스크립트 -->
+
 </body>
 </html>
