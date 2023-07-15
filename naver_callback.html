@@ -14,8 +14,8 @@
 
   <!-- 네이버아디디로로그인 초기화 Script -->
   <script type="text/javascript">
-    naver_id_login.response_type = "code";
     var naver_id_login = new naver_id_login("6ohvMrOWVXupwLYuwRIF", "https://qnall.kro.kr/naver_callback.html");
+        naver_id_login.response_type = "code";
     var state = naver_id_login.getUniqState();
     naver_id_login.setButton("white", 2, 40);
     naver_id_login.setDomain(".service.com");
@@ -46,7 +46,6 @@
 
       // 네이버 사용자 프로필 조회
       naver_id_login.get_naver_userprofile(naverSignInCallback);
-      naverSignInCallback()
 
     });
   </script>
