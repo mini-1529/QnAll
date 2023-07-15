@@ -35,13 +35,15 @@
         alert(naver_id_login.getProfileData('email'));
         alert(naver_id_login.getProfileData('nickname'));
         alert(naver_id_login.getProfileData('age'));
+        window.opener.location.href = 'https://qnall.kro.kr/answer.html';
+        this.close(); 
 
       }
 
       // 네이버 사용자 프로필 조회
       naver_id_login.get_naver_userprofile(naverSignInCallback);
       window.opener.location.href = 'https://qnall.kro.kr/answer.html';
-      window.close() 
+      window.close(); 
 
     });
   </script>
