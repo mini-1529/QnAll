@@ -6,6 +6,14 @@ function uploadPhoto() {
     const formData = new FormData();
     formData.append('photo', file);
 
+    const 박스1 = document.getElementById('박스1').value;
+    const 박스2 = document.getElementById('박스2').value;
+    const 과목 = document.querySelector('select[name="과목"]').value;
+
+    formData.append('박스1', 박스1);
+    formData.append('박스2', 박스2);
+    formData.append('과목', 과목);
+
     const url = 'https://qnall.kro.kr/'; // 실제 파일을 업로드하고 처리할 서버의 URL로 변경해야 합니다.
 
     // AJAX 요청 보내기
