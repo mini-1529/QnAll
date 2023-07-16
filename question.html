@@ -42,52 +42,53 @@
   </div>
 
   <script>
-  function uploadPhoto() {
-  const fileInput = document.getElementById('file-input');
-  const file = fileInput.files[0];
+    function uploadPhoto() {
+      const fileInput = document.getElementById('file-input');
+      const file = fileInput.files[0];
 
-  if (file) {
-    const formData = new FormData();
-    formData.append('photo', file);
+      if (file) {
+        const formData = new FormData();
+        formData.append('photo', file);
 
-    const url = 'https://qnall.kro.kr/'; // 실제 파일을 업로드하고 처리할 서버의 URL로 변경해야 합니다.
+        const url = 'https://qnall.kro.kr/'; // 실제 파일을 업로드하고 처리할 서버의 URL로 변경해야 합니다.
 
-    // 업로드 중에는 업로드 버튼을 비활성화합니다.
-    const uploadButton = document.querySelector('.upload-button');
-    uploadButton.disabled = true;
+        // 업로드 중에는 업로드 버튼을 비활성화합니다.
+        const uploadButton = document.querySelector('.upload-button');
+        uploadButton.disabled = true;
 
-    // 로딩 표시기를 표시합니다.
-    const loadingIndicator = document.querySelector('.container');
-    loadingIndicator.innerHTML += '<p class="loading-indicator">업로드 중...</p>';
+        // 로딩 표시기를 표시합니다.
+        const loadingIndicator = document.querySelector('.container');
+        loadingIndicator.innerHTML += '<p class="loading-indicator">업로드 중...</p>';
 
-    // AJAX 요청
-    $.ajax({
-      url: url,
-      type: 'POST',
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function(response) {
-        console.log('파일 업로드 성공:', response);
-        // 업로드 성공 시 추가 작업을 수행합니다.
+        // AJAX 요청
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(response) {
+            console.log('파일 업로드 성공:', response);
+            // 업로드 성공 시 추가 작업을 수행합니다.
 
-        // 업로드 버튼을 활성화하고 로딩 표시기를 제거합니다.
-        uploadButton.disabled = false;
-        loadingIndicator.querySelector('.loading-indicator').remove();
-      },
-      error: function(xhr, status, error) {
-        console.error('파일 업로드 실패:', error);
-        // 업로드 실패 시 처리할 내용입니다.
+            // 업로드 버튼을 활성화하고 로딩 표시기를 제거합니다.
+            uploadButton.disabled = false;
+            loadingIndicator.querySelector('.loading-indicator').remove();
+          },
+          error: function(xhr, status, error) {
+            console.error('파일 업로드 실패:', error);
+            // 업로드 실패 시 처리할 내용입니다.
 
-        // 업로드 버튼을 활성화하고 로딩 표시기를 제거합니다.
-        uploadButton.disabled = false;
-        loadingIndicator.querySelector('.loading-indicator').remove();
+            // 업로드 버튼을 활성화하고 로딩 표시기를 제거합니다.
+            uploadButton.disabled = false;
+            loadingIndicator.querySelector('.loading-indicator').remove();
+          }
+        });
+      } else {
+        console.log('파일을 선택해주세요.');
       }
-    });
-  } else {
-    console.log('파일을 선택해주세요.');
-  }
-}
-
+    }
+  </script>
+</body>
 
 </html>
