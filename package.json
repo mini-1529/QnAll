@@ -1,3 +1,0 @@
-"scripts": {
-  "start": "concurrently \"node server.js\" \"node uploadphoto.js\" \"node script.js\""
-}
