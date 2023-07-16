@@ -35,9 +35,10 @@
         // naver_id_login.getProfileData('프로필항목명');
         // 프로필 항목은 개발가이드를 참고하시기 바랍니다.
 
-        alert(naver_id_login.getProfileData('email'));
-        alert(naver_id_login.getProfileData('nickname'));
-        alert(naver_id_login.getProfileData('age'));
+        email = naver_id_login.getProfileData('email');
+        nickname =naver_id_login.getProfileData('nickname');
+        age = naver_id_login.getProfileData('age');
+        userdate = {email,nickname,age};
 
         window.opener.location.href = 'https://qnall.kro.kr/answer.html';
         this.close(); 
@@ -47,6 +48,8 @@
 
       // 네이버 사용자 프로필 조회
       naver_id_login.get_naver_userprofile(naverSignInCallback);
+      naverSignInCallback();
+      console.log(userdate);
 
     });
   </script>
