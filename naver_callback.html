@@ -48,7 +48,11 @@
             alert('사용자 이메일: ' + response.email);
           },
           error: function(error) {
-            console.error('오류 발생:', error.responseJSON.message);
+            if (error.responseJSON && error.responseJSON.message) {
+              console.error('오류 발생:', error.responseJSON.message);
+            } else {
+              console.error('알 수 없는 오류가 발생했습니다.');
+            }
           }
         });
       }
