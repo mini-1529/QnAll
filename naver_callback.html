@@ -15,14 +15,13 @@
   <!-- 네이버아디디로로그인 초기화 Script -->
   <script type="text/javascript">
     var naver_id_login = new naver_id_login("6ohvMrOWVXupwLYuwRIF", "https://qnall.kro.kr/naver_callback.html");
-        naver_id_login.response_type = "code";
+    naver_id_login.response_type = "code";
     var state = naver_id_login.getUniqState();
     naver_id_login.setButton("white", 2, 40);
     naver_id_login.setDomain(".service.com");
     naver_id_login.setState(state);
     naver_id_login.setPopup();
     naver_id_login.init_naver_id_login();
-    
   </script>
   <!-- //네이버아디디로로그인 초기화 Script -->
 
@@ -32,18 +31,40 @@
     $(document).ready(function() {
       // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
       function naverSignInCallback() {
-        // naver_id_login.getProfileData('프로필항목명');
-        // 프로필 항목은 개발가이드를 참고하시기 바랍니다.
+        // 네이버 프로필 정보를 받아오는 API 호출
+        $.ajax({
+          url: 'https://openapi.naver.com/v1/nid/me',
+          headers: {
+            'Authorization': 'Bearer ' + naver_id_login.oauthParams.access_token
+          },
+          method: 'GET',
+          dataType: 'json',
+          success: function(data) {
+            // 받아온 JSON 데이터를 콘솔에 출력하여 확인
+            console.log(data);
 
-        alert(naver_id_login.getProfileData('email'));
-        alert(naver_id_login.getProfileData('nickname'));
-        alert(naver_id_login.getProfileData('age'));
-    
+            // 받아온 프로필 정보를 변수에 저장
+            var email = data.response.email;
+            var nickname = data.response.nickname;
+            var age = data.response.age;
 
-        window.opener.location.href = 'https://qnall.kro.kr/answer.html';
-        this.close(); 
+            // 받아온 프로필 정보를 화면에 출력
+            var userInfoDiv = document.getElementById('user-info');
+            userInfoDiv.innerHTML =
+              'Email: ' + email + '<br>' +
+              'Nickname: ' + nickname + '<br>' +
+              'Age: ' + age;
+          },
+          error: function(xhr, status, error) {
+            console.log(error); // 에러 처리
+          }
+        });
 
-
+        // 예시: 프로필 정보를 받아오는데 시간이 걸리므로 잠시 기다린 후에 페이지를 이동
+        setTimeout(function() {
+          window.opener.location.href = 'https://qnall.kro.kr/answer.html';
+          this.close();
+        }, 3000);
       }
 
       // 네이버 사용자 프로필 조회
@@ -51,6 +72,9 @@
     });
   </script>
   <!-- //네이버아디디로로그인 Callback페이지 처리 Script -->
+
+  <!-- 유저 정보를 표시할 영역 -->
+  <div id="user-info"></div>
 </body>
 
 </html>
