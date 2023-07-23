@@ -35,9 +35,22 @@
         // naver_id_login.getProfileData('프로필항목명');
         // 프로필 항목은 개발가이드를 참고하시기 바랍니다.
 
-        alert(inner_profileParams.email);
+        var token = naver_id_login.oauthParams.access_token;
 
-
+        // 서버로 토큰 전송 (AJAX 요청)
+        $.ajax({
+          url: 'http://localhost:3000/process_token', // 서버의 주소에 맞게 수정
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({ token: token }),
+          success: function(response) {
+            // 서버로부터 응답 받은 데이터 처리
+            alert('사용자 이메일: ' + response.email);
+          },
+          error: function(error) {
+            console.error('오류 발생:', error.responseJSON.message);
+          }
+        });
       }
 
       // 네이버 사용자 프로필 조회
