@@ -15,117 +15,51 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
+            line-height: 1.6;
         }
 
         h1 {
             text-align: center;
             padding: 20px;
-            font-size: 24px;
+            font-size: 36px;
             color: #333;
         }
 
-        h2 {
-            text-align: center;
-            padding-bottom: 20px;
-            font-size: 18px;
-            color: #666;
-        }
-
-        #gallery {
-            text-align: center;
-            margin: 20px;
-        }
-
-        #image {
-            max-width: 100%;
-            height: auto;
-        }
-
-        #navigation {
+        .btn-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #fff;
+            justify-content: center;
+            margin-top: 40px;
         }
 
-        .arrow {
-            font-size: 24px;
-            cursor: pointer;
-            padding: 10px;
-            color: #333;
-        }
-
-        #image-counter {
-            font-size: 16px;
-            color: #666;
-        }
-
-        /* Styling for PDF download section */
-        .pdf-download {
-            text-align: center;
-            padding: 10px;
-        }
-
-        .pdf-download a {
+        .btn {
             display: inline-block;
-            margin: 5px;
-            padding: 10px 20px;
+            margin: 0 10px;
+            padding: 15px 30px;
             background-color: #ffcc00;
             border: none;
             border-radius: 5px;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 24px;
             color: #ffffff;
             cursor: pointer;
-            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
 
-        .pdf-download a:hover {
+        .btn:hover {
             background-color: #ffa500;
         }
+
     </style>
 </head>
 
 <body>
     <h1>QnAll 모의고사 풀이</h1>
-    <h2>2022년 7월 모의고사</h2>
 
-    <div class="pdf-download">
-        <a href="2207q.pdf">문제 다운로드</a>
-        <a href="2207a.pdf">해설지 다운로드</a>
+    <div class="btn-container">
+        <a href="opencsat2207.html" class="btn">2022년 7월 모의고사</a>
+        <a href="opencsat2307.html" class="btn">2023년 7월 모의고사</a>
     </div>
 
-    <div id="gallery">
-        <img id="image" src="image/2207-1.jpg">
-    </div>
-
-    <div id="navigation">
-        <span class="arrow" id="previous">&lt;</span>
-        <span id="image-counter">1/30</span>
-        <span class="arrow" id="next">&gt;</span>
-    </div>
-
-    <script>
-        var currentIndex = 1;
-        var maxIndex = 30;
-
-        document.getElementById("previous").addEventListener("click", function() {
-            if (currentIndex > 1) {
-                currentIndex--;
-                document.getElementById("image").src = "image/2207-" + currentIndex + ".jpg";
-                document.getElementById("image-counter").textContent = currentIndex + "/" + maxIndex;
-            }
-        });
-
-        document.getElementById("next").addEventListener("click", function() {
-            if (currentIndex < maxIndex) {
-                currentIndex++;
-                document.getElementById("image").src = "image/2207-" + currentIndex + ".jpg";
-                document.getElementById("image-counter").textContent = currentIndex + "/" + maxIndex;
-            }
-        });
-    </script>
 </body>
 
 </html>
