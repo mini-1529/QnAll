@@ -36,28 +36,31 @@
         // 프로필 항목은 개발가이드를 참고하시기 바랍니다.
 
         var token = naver_id_login.oauthParams.access_token;
-        console.log(token);
 
         // 서버로 토큰 전송 (AJAX 요청)
-        $.ajax({
-          url: 'https://qnall.kro.kr ', // 서버의 주소에 맞게 수정
-          method: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify({ token: token }),
-          success: function(response) {
-            // 서버로부터 응답 받은 데이터 처리
-            alert('사용자 이메일: ' + response.email);
-          },
-          error: function(error) {
-            if (error.responseJSON && error.responseJSON.message) {
-              console.error('오류 발생:', error.responseJSON.message);
-            } else {
-              console.error('알 수 없는 오류가 발생했습니다.');
-            }
-          }
+               const endpoint = 'https://openapi.naver.com/v1/nid/agreement';
+
+        // 요청 헤더에 Bearer 토큰을 포함하는 객체를 생성합니다.
+        const headers = new Headers();
+        headers.append('Authorization', `Bearer ${token}`);
+
+        // fetch 함수를 사용하여 GET 요청을 보냅니다.
+        fetch(endpoint, {
+          method: 'GET',
+          headers: headers
+        })
+        .then(response => {
+          // 응답을 JSON 형식으로 파싱하여 데이터를 처리합니다.
+          return response.json();
+        })
+        .then(data => {
+          // 처리한 데이터를 출력하거나 다른 작업을 수행합니다.
+          console.log(data);
+        })
+        .catch(error => {
+          // 에러 처리
+          console.error('Error:', error);
         });
-
-
       }
 
       // 네이버 사용자 프로필 조회
