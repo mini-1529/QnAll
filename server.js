@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 
 // POST 요청을 처리하는 엔드포인트
-app.post('/naver_callback.html', async (req, res) => {
+app.post('/naver/callback', async (req, res) => {
   const accessToken = req.body.token;
 
   try {
