@@ -1,11 +1,7 @@
 const express = require('express');
 const axios = require('axios');
-const cors = require('cors'); // cors 미들웨어 추가
 const app = express();
 const port = 3000;
-
-// CORS 설정: 모든 도메인에서 오는 요청을 허용
-app.use(cors());
 
 // POST 요청을 처리하는 엔드포인트
 app.post('/naver/callback', async (req, res) => {
@@ -30,4 +26,3 @@ app.post('/naver/callback', async (req, res) => {
 app.listen(port, () => {
   console.log(`서버 실행 중. 포트: ${port}`);
 });
-
