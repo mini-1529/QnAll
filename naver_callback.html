@@ -40,7 +40,7 @@
         // 서버로 토큰 전송 (AJAX 요청)
         $.ajax({
           url: 'https://qnall.kro.kr ', // 서버의 주소에 맞게 수정
-          method: 'POST',
+          method: 'GET',
           contentType: 'application/json',
           data: JSON.stringify({ token: token }),
           success: function(response) {
