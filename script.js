@@ -1,7 +1,7 @@
 // 유저 계정 정보
 const user = {
   id: "", // 초기값은 빈 문자열로 설정
-  name: "" // 초기값은 빈 문자열로 설정
+  name: "", // 초기값은 빈 문자열로 설정
 };
 
 // 유저 정보를 표시하는 함수
@@ -10,11 +10,17 @@ function displayUserInfo() {
   currentUserDiv.innerHTML = `로그인 계정: ${user.name} (${user.id})`;
 }
 
+// 액세스 토큰을 쿠키에 저장하는 함수
+function setAccessTokenToCookie(token, expirationTime) {
+  const expirationDate = new Date(expirationTime).toUTCString();
+  document.cookie = `access_token=${token}; expires=${expirationDate}; path=/`;
+}
+
 // 유저 정보를 서버에서 받아오는 함수
 function fetchUserData() {
   // AJAX 요청
   const xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE) {
       if (xhr.status === 200) {
         const responseData = JSON.parse(xhr.responseText);
@@ -26,6 +32,17 @@ function fetchUserData() {
 
         // 유저 정보 표시 업데이트
         displayUserInfo();
+
+        // 여기서 액세스 토큰을 받아오고 쿠키에 저장
+        const receivedAccessToken = "YOUR_RECEIVED_ACCESS_TOKEN"; // 서버에서 받은 토큰
+        const tokenExpirationTime = Date.now() + 3600000; // 만료 시간을 현재 시간으로부터 1시간 후로 설정
+
+        setAccessTokenToCookie(receivedAccessToken, tokenExpirationTime);
+
+        // 초기 데이터 표시를 위해 한 번 데이터 요청을 보냅니다.
+        const selectElement = document.getElementById("subject");
+        const selectedOption = selectElement.value;
+        fetchDataBySubject(selectedOption);
       } else {
         // 에러 처리
         console.log('서버에서 유저 데이터를 가져오는 데 실패했습니다.');
@@ -43,7 +60,7 @@ function fetchUserData() {
 function fetchDataBySubject(selectedOption) {
   // AJAX 요청
   const xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE) {
       if (xhr.status === 200) {
         const responseData = JSON.parse(xhr.responseText);
@@ -101,7 +118,7 @@ function fetchDataBySubject(selectedOption) {
 
 // 선택한 과목 변경 시의 동작
 const selectElement = document.getElementById("subject");
-selectElement.addEventListener("change", function() {
+selectElement.addEventListener("change", function () {
   const selectedOption = selectElement.value;
   fetchDataBySubject(selectedOption);
 });
