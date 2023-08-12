@@ -24,14 +24,6 @@ if (receivedAccessToken) {
   setAccessTokenToCookie(receivedAccessToken, tokenExpirationTime);
 }
 
-function navigateToChatPage(postId) {
-  // 채팅 페이지 URL 생성
-  const chatPageURL = `https://example.com/chat?postId=${postId}`;
-  
-  // 새 창 또는 현재 창으로 페이지 이동
-  window.location.href = chatPageURL;
-}
-
 // 유저 정보를 서버에서 받아오는 함수
 function fetchUserData() {
   // AJAX 요청
@@ -104,9 +96,11 @@ function fetchDataBySubject(selectedOption) {
             // 게시판 항목 클릭 시 이벤트 추가
             const titleElement = eventItem.querySelector(".event-title");
             titleElement.addEventListener("click", function () {
-            navigateToChatPage(filteredData.id); // 클릭한 게시물의 ID를 채팅 페이지로 전달
+              const postId = filteredData.id; // 클릭한 게시물의 ID를 가져옴
+              navigateToChatPage(postId); // 클릭한 게시물의 ID를 채팅 페이지로 전달
 
-            eventList.appendChild(eventItem);
+              eventList.appendChild(eventItem);
+            });
           });
         } else {
           // 선택한 과목에 해당하는 데이터가 없는 경우 처리
