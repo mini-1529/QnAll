@@ -10,6 +10,20 @@ function displayUserInfo() {
   currentUserDiv.innerHTML = `로그인 계정: ${user.name} (${user.id})`;
 }
 
+// 액세스 토큰을 쿠키에 저장하는 함수
+function setAccessTokenToCookie(token, expirationTime) {
+  const expirationDate = new Date(expirationTime).toUTCString();
+  document.cookie = `access_token=${token}; expires=${expirationDate}; path=/`;
+}
+
+// 클라이언트 URL에서 토큰 추출 및 쿠키에 저장
+const urlParams = new URLSearchParams(window.location.search);
+const receivedAccessToken = urlParams.get('token');
+if (receivedAccessToken) {
+  const tokenExpirationTime = Date.now() + 3600000; // 만료 시간을 현재 시간으로부터 1시간 후로 설정
+  setAccessTokenToCookie(receivedAccessToken, tokenExpirationTime);
+}
+
 // 유저 정보를 서버에서 받아오는 함수
 function fetchUserData() {
   // AJAX 요청
