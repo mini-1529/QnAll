@@ -24,6 +24,15 @@ if (receivedAccessToken) {
   setAccessTokenToCookie(receivedAccessToken, tokenExpirationTime);
 }
 
+function navigateToChatPage(postId) {
+  // 채팅 페이지 URL 생성
+  const chatPageURL = `https://qnall.kro.kr/chat.html?postId=${postId}`;
+  
+  // 새 창 또는 현재 창으로 페이지 이동
+  window.location.href = chatPageURL;
+}
+
+
 // 유저 정보를 서버에서 받아오는 함수
 function fetchUserData() {
   // AJAX 요청
