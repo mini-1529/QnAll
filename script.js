@@ -85,8 +85,6 @@ function fetchDataBySubject(selectedOption) {
             const title = titles[index];
             const description = descriptions[index];
 
-            const postId = filteredData.posts[index].id;
-
             const eventItem = document.createElement("div");
             eventItem.className = "event-item";
             eventItem.innerHTML = `
@@ -98,10 +96,7 @@ function fetchDataBySubject(selectedOption) {
             // 게시판 항목 클릭 시 이벤트 추가
             const titleElement = eventItem.querySelector(".event-title");
             titleElement.addEventListener("click", function () {
-              handlePostClick(filteredData.id);
-              const newURL = `https://qnall.kro.kr/posts/${postId}`; // 새 URL 생성
-              window.location.href = newURL; // 페이지 변경
-            });
+            handlePostClick(filteredData.id);
 
             eventList.appendChild(eventItem);
           });
