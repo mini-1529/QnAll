@@ -97,6 +97,8 @@ function fetchDataBySubject(selectedOption) {
             const titleElement = eventItem.querySelector(".event-title");
             titleElement.addEventListener("click", function () {
               handlePostClick(filteredData.id);
+              const newURL = `https://qnall.kro.kr/posts/${postId}`; // 새 URL 생성
+              window.location.href = newURL; // 페이지 변경
             });
 
             eventList.appendChild(eventItem);
