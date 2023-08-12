@@ -85,6 +85,8 @@ function fetchDataBySubject(selectedOption) {
             const title = titles[index];
             const description = descriptions[index];
 
+            const postId = filteredData.posts[index].id;
+
             const eventItem = document.createElement("div");
             eventItem.className = "event-item";
             eventItem.innerHTML = `
